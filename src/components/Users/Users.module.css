@@ -1,0 +1,77 @@
+.container {
+    background-color: #b3adad;
+    border-radius: 5px;
+    padding: 20px;
+}
+.wrapper {
+    display: flex;
+    margin-bottom: 30px;
+}
+.user {
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.image {
+    width: 150px;
+    margin-bottom: 30px;
+    border-radius: 20px;
+}
+
+.btn, .btn:focus {
+    padding: 10px;
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    background-color: lightseagreen;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover
+ {
+    color:lightseagreen;
+    background-color: transparent;
+    box-shadow: 0 0 2px 2px lightseagreen;
+    transition: 0.3s;
+}
+
+.btn:disabled {
+    color: rosybrown;
+    background-color: transparent;
+    box-shadow: 0 0 2px 2px rosybrown;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+}
+.myself, .location {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.name {
+    margin: 0;
+}
+.pagination {
+    margin-bottom: 30px;
+}
+.pagination span{
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+.pagination span:last-of-type{
+    margin-right: 0;
+}
+.selectedPage {
+    font-weight: bold;
+}

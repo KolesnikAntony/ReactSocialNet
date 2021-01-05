@@ -1,0 +1,17 @@
+
+.app{
+  display: grid;
+  grid-template-areas: 'header header' 'sidebar content';
+  grid-auto-rows: 60px 1fr;
+  grid-auto-columns: 2fr 10fr;
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.content{
+  grid-area: content;
+  border-radius: 5px;
+}
+

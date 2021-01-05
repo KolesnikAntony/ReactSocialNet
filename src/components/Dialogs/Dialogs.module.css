@@ -1,0 +1,61 @@
+.dialogs {
+    display: flex;
+    background-color: #b3adad;
+    border-radius: 5px;
+}
+.users {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    padding: 15px;
+    border-right: lightseagreen 1px solid;
+}
+
+.messages{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 80%;
+    padding: 15px;
+}
+
+.inform {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.textarea{
+    outline: none;
+    -moz-appearance: none;
+    border: 1px solid #999;
+    background: transparent;
+    padding: 15px;
+    resize: none;
+    width: 300px;
+    height: 70px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+.textarea:focus {
+    border-color: lightseagreen;
+}
+
+.btn {
+    font-size: 16px;
+    padding: 8px 32px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: lightseagreen;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.btn:hover,
+.btn:active,
+.btn:focus{
+    color: lightseagreen;
+    background-color: white;
+    transition: 0.3s;
+    border: none;
+    outline: none;
+}

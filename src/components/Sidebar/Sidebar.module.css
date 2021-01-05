@@ -1,0 +1,25 @@
+.sidebar{
+    grid-area: sidebar;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    background: #b3adad;
+    border-radius: 5px;
+}
+.sidebarLink {
+    color: white;
+    margin-bottom: 15px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.sidebarLink:hover {
+    color: lightseagreen;
+    transition: 0.3s;
+}
+.sidebarLink.active {
+    color: lightseagreen;
+}
+
+.sidebarLink:last-of-type{
+    margin-bottom: 0;
+}

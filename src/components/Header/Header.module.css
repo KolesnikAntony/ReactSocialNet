@@ -1,0 +1,23 @@
+.header {
+    grid-area: header;
+    background-color: gray;
+    text-align: center;
+    padding: 5px 0;
+    border-bottom-left-radius: 5px ;
+    border-bottom-right-radius: 5px ;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.img {
+    width: 50px;
+}
+
+.isAuth {
+    display: flex;
+    align-items: center;
+}
+
+.isAuth button {
+    margin-bottom: 0;
+}

@@ -1,0 +1,20 @@
+.formLogin {
+    display: flex;
+    flex-direction: column;
+}
+
+.formLogin input, button {
+    margin-bottom: 30px;
+    padding: 10px;
+    max-width: 300px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.formLogin button {
+    margin-bottom: 0;
+
+}
+.isError {
+    color: red;
+}

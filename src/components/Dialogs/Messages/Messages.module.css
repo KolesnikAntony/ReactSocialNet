@@ -1,0 +1,10 @@
+.message {
+    margin: 0;
+    margin-bottom: 15px;
+    padding: 8px 16px;
+    border: lightseagreen solid 1px;
+    border-radius: 5px;
+    color: lightseagreen;
+    background-color: antiquewhite;
+    width: auto;
+}

@@ -1,0 +1,12 @@
+.user{
+    margin: 0;
+    margin-bottom: 15px;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.user:hover{
+    color: lightseagreen;
+    transition: 0.3s;
+}

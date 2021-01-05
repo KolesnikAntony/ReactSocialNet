@@ -1,0 +1,21 @@
+.profileInfo {
+    background-color: dimgrey;
+}
+.imagebox {
+    width: 100%;
+    height: 200px;
+    overflow-y: hidden;
+    margin-bottom: 30px;
+}
+.image {
+    width: 100%;
+    transform: translateY(-100px);
+}
+
+.profile {
+    display: flex;
+    padding: 20px;
+}
+.profile img {
+    margin-right: 30px;
+}
