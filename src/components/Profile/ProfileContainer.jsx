@@ -9,13 +9,23 @@ import withAuthRedirect from "../../hoc/AuthRedirect";
 
 
 class ProfileContainer extends React.Component{
-    componentDidMount() {
+
+    refreshGetUserProfile = () =>{
         let userId = this.props.match.params.userId;
         if(!userId) {
             userId = this.props.loggedId;
         }
         this.props.getUserProfile(userId);
         this.props.getProfileStatus(userId);
+    }
+    componentDidMount() {
+        this.refreshGetUserProfile()
+    }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.match.params.userId != this.props.match.params.userId){
+            this.refreshGetUserProfile()
+        }
     }
 
     render() {
