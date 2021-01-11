@@ -2,15 +2,14 @@ import React from 'react'
 import style from "../Posts.module.css";
 import {Field, reduxForm} from "redux-form";
 import {Textarea} from "../../../../common/FormControls/FormControls";
-import {maxLength, required} from "../../../../helpers/validate/validate";
 
-const PostForm = (props) => {
-    return <form onSubmit={props.handleSubmit} className={style.inform}>
-        <Field  name={"addPost"} component={Textarea} className={style.textarea} validate={[required]}/>
-        <button className={style.btn}>Send</button>
+const PostForm = ({handleSubmit}) => {
+
+    return <form onSubmit={handleSubmit} className={style.inform}>
+        <Field  name={"postBody"} component={Textarea} className={style.textarea}/>
+        <button className={style.btn}>send</button>
     </form>
 }
 
 const PostFormComponent = reduxForm({form: 'post form'})(PostForm)
-
 export default PostFormComponent;

@@ -66,7 +66,7 @@ const usersPageReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: action.isFetching
-            }
+            };
         case FOLLOWING_IN_PROGRESS:
             return {
                 ...state,

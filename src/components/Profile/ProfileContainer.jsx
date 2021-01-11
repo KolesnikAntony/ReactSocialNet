@@ -1,53 +1,50 @@
-import React from 'react';
-
+import React, {useEffect} from 'react';
 import {withRouter} from "react-router-dom";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getProfileStatus, getUserProfile, updateProfileStatus} from "../../redux/profilePage-reducer";
+import {
+    getProfileStatus,
+    getUserProfile, updateProfileData,
+    updateProfilePhoto,
+    updateProfileStatus
+} from "../../redux/profilePage-reducer";
 import {compose} from "redux";
 import withAuthRedirect from "../../hoc/AuthRedirect";
+import {requestAuthId, requestStatus, requestUserProfile} from "../../redux/selectors";
 
+const ProfileContainer = props => {
 
-class ProfileContainer extends React.Component{
+    useEffect(()=> refreshGetUserProfile(), [props.match.params.userId]);
 
-    refreshGetUserProfile = () =>{
-        let userId = this.props.match.params.userId;
+    const refreshGetUserProfile = () => {
+        let userId = props.match.params.userId;
         if(!userId) {
-            userId = this.props.loggedId;
+            userId = props.loggedId;
         }
-        this.props.getUserProfile(userId);
-        this.props.getProfileStatus(userId);
-    }
-    componentDidMount() {
-        this.refreshGetUserProfile()
+        props.getUserProfile(userId);
+        props.getProfileStatus(userId);
     }
 
-    componentDidUpdate(prevProps) {
-        if(prevProps.match.params.userId != this.props.match.params.userId){
-            this.refreshGetUserProfile()
-        }
-    }
-
-    render() {
-        return <Profile {...this.props}
-        />
-    }
-};
-
-
-const mapStateToProps = (state) => {
-    return {
-        userProfile: state.profilePage.userProfile,
-        loggedId: state.authTemplate.id,
-        status: state.profilePage.status
-    }
+    return <Profile {...props}/>
 }
+
+
+const mapStateToProps = state => (
+    {
+        userProfile: requestUserProfile(state),
+        loggedId: requestAuthId(state),
+        status: requestStatus(state),
+    }
+)
+
 
 const mapDispatchToProps = {
     getUserProfile,
     getProfileStatus,
-    updateProfileStatus
-}
+    updateProfileStatus,
+    updateProfilePhoto,
+    updateProfileData,
+};
 
 export default compose(
     withRouter,

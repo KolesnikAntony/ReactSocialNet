@@ -1,42 +1,59 @@
-import React from "react";
+import React , {useState, useEffect} from "react";
+import style from './ProfileInfo.module.css'
 
-class ProfileStatus extends React.Component {
-    state = {
-        editStatus: false,
-        status: this.props.status
-    }
-    acitvateStatusEditor = () => {
-        this.setState(
-            {editStatus: true}
-        )
-    }
-    deacitvateStatusEditor = () => {
-        this.setState(
-            {editStatus: false}
-        );
-        this.props.updateProfileStatus(this.state.status);
-    }
-    onChangeStatus = e => {
-        this.setState({
-            status: e.currentTarget.value,
-        });
+const ProfileStatus = props => {
+
+    const [editStatus, setEditStatus] = useState(false);
+    const [status, setStatus] = useState(props.status);
+    const [statusPrompt, setStatusPrompt] = useState(false);
+
+    useEffect(()=> {
+        setStatus(props.status);
+    },[props.status])
+
+    let activateStatusEditor = () => {
+        setEditStatus(true);
     };
-componentDidUpdate(prevProps, prevState, snapshot) {
-    if(prevProps.status != this.props.status) {
-        this.setState({
-            status: this.props.status,
-        })
-    }
-}
 
-    render() {
-        return <div>
-            {this.state.editStatus
-            ? <input onChange={this.onChangeStatus} autoFocus={true} onBlur={this.deacitvateStatusEditor} type="text" value={this.state.status}/>
-            :<span onDoubleClick={this.acitvateStatusEditor}>{this.props.status? this.props.status: '---------' }</span>}
-        </div>
+    let deactivateStatusEditor = () => {
+        setEditStatus(false);
+        setStatusPrompt(false);
+        props.updateProfileStatus(status);
+    };
 
-    }
+    let onChangeStatus = e => {
+        setStatus(e.target.value);
+    };
+
+    const onKeyEnter = e => {
+        if(e.keyCode === 13) deactivateStatusEditor();
+    };
+
+    const showStatusPrompt = () => {
+        setStatusPrompt(true);
+    };
+
+    const hideStatusPrompt = () => {
+        setStatusPrompt(false);
+    };
+
+    return <div className={style.statusHolder}>
+        <b>Status: </b>
+        {editStatus
+            ? <input className={style.status}
+                     onChange={onChangeStatus} autoFocus={true} onBlur={deactivateStatusEditor}
+                     onKeyUp={(e)=> onKeyEnter(e)}
+                     type="text"
+                     value={status}/>
+            : <span
+                onDoubleClick={activateStatusEditor}
+                onMouseLeave={hideStatusPrompt}
+                onMouseEnter={showStatusPrompt}
+            >{props.status ? props.status : 'Write your status...'}</span>}
+        <p className={style.prompt + ' '+ (statusPrompt && !editStatus &&  style.showPrompt)}>on duble click for change status</p>
+    </div>
+
+
 }
 
 export default ProfileStatus;

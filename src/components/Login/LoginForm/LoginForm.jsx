@@ -13,6 +13,8 @@ const LoginForm = (props) => {
         <label htmlFor="rememberMe">Remember me</label>
         <Field component={'input'} name='rememberMe' type='checkbox' id='rememberMe'/>
         {props.error && <p className={style.isError}>{props.error}</p>}
+        {props.captchaUrl && <img src={props.captchaUrl} alt="captcha"/>}
+        {props.captchaUrl && <Field component={Input} name='captcha'/>}
         <button>Login</button>
     </form>
 }

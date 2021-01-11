@@ -19,7 +19,7 @@ const Paginator = (props) => {
         <div className={style.pagination}>
             {pages
                 .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
-                .map(p => <span onClick={()=> props.showCurrentUsers(p)} className={props.currentPage === p && style.selectedPage}>{p}</span>)}
+                .map(p => <span  key={p} onClick={()=> props.showCurrentUsers(p)} className={(p == props.currentPage)  && style.selectedPage}>{p}</span>)}
         </div>
         <button onClick={()=>setPortionNumber(portionNumber + 1)} disabled={portionCount <= portionNumber}>next</button>
     </div>

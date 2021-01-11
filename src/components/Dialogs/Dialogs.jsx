@@ -2,20 +2,25 @@ import React from 'react';
 import style from './Dialogs.module.css'
 import Users from "./Users/Users";
 import Messages from "./Messages/Messages";
-import MessagesFormComponent from "./MessagesForm/MessagesForm";
+import MessagesForm from "./MessagesForm/MessagesForm";
+import {onSendMessage} from "../../redux/dialogsPage-reducer";
+import {compose} from "redux";
+import {connect} from "react-redux";
+import withAuthRedirect from "../../hoc/AuthRedirect";
+import {requestDialogsPage} from "../../redux/selectors";
 
 
 
 
-let Dialogs = (props) => {
-    let usersArray = props.state.users.map(el => <Users id={el.id} name={el.name}/>);
-    let messagesArray = props.state.messages.map(el=><Messages text={el.text}/>);
+let Dialogs = ({dialogsPage,onSendMessage}) => {
+    let usersArray = dialogsPage.users.map(el => <Users key={el.id} id={el.id} name={el.name}/>);
+    let messagesArray = dialogsPage.messages.map(el=><Messages key={el.id} text={el.text}/>);
 
-    let sendMessage = (messageBody) => {
-        props.onSendMessage(messageBody);
+    const sendMessage = messageBody => {
+        onSendMessage(messageBody);
     };
 
-    let onSubmit = (value) => {
+    const onSubmit = value => {
         sendMessage(value.sendMessage);
     };
 
@@ -28,11 +33,19 @@ let Dialogs = (props) => {
             </div>
             <div className={style.messages}>
                 {messagesArray}
-                <MessagesFormComponent onSubmit={onSubmit}/>
+                <MessagesForm onSubmit={onSubmit}/>
             </div>
         </div>
     )
-}
+};
 
 
-export default Dialogs;
+const mapStoreToProps = state => ({
+    dialogsPage: requestDialogsPage(state),
+});
+
+export default compose(
+    connect(mapStoreToProps,{ onSendMessage} ),
+    withAuthRedirect
+)(Dialogs);
+

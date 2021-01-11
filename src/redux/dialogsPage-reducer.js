@@ -1,4 +1,6 @@
-const SEND_MESSAGE = 'SEND-MESSAGE';
+import {reset} from "redux-form";
+
+const SEND_MESSAGE = 'dialogPage-reducer/SEND-MESSAGE';
 
 
 let initialState = {
@@ -10,25 +12,26 @@ let initialState = {
         {id:5, name: 'Koshka' }
     ],
     messages : [
-        {text: 'Привет'},
-        {text: 'Как дела?'},
-        {text: 'Что нового?'},
-        {text: 'Где пропал?'},
-        {text: 'Йоу'},
+        {id: 1, text: 'Привет'},
+        {id: 2, text: 'Как дела?'},
+        {id: 3, text: 'Что нового?'},
+        {id: 4, text: 'Где пропал?'},
+        {id: 5, text: 'Йоу'},
     ],
-    newValueMessage: '',
-}
+};
 
 const dialogsPageReducer = (state = initialState, action) => {
     switch (action.type) {
         case SEND_MESSAGE: {
             let newMessage = {
                 text: action.messageBody,
+                id: state.messages.length + 1,
             };
-            let newState = {...state};
-            newState.messages = [...state.messages];
-            newState.messages.push(newMessage);
-            return newState;
+
+            return  {
+                ...state,
+                messages: [...state.messages, newMessage]
+            };
         }
 
 
@@ -40,7 +43,12 @@ const dialogsPageReducer = (state = initialState, action) => {
 }
 
 
-export let sendMessageActionCreater = (messageBody) => ({type: SEND_MESSAGE, messageBody});
+const onSendMessageSuccess = messageBody => ({type: SEND_MESSAGE, messageBody});
+
+export const onSendMessage = messageBody => dispatch => {
+    dispatch(onSendMessageSuccess(messageBody));
+    dispatch(reset('Messages form'));
+};
 
 
 export default dialogsPageReducer;

@@ -1,8 +1,10 @@
 import {profileAPI, usersAPI} from "../api/api";
+import {reset, stopSubmit} from "redux-form";
 
-const ADD_POST = 'ADD-POST';
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS';
+const ADD_POST = 'profilePage-reducer/ADD-POST';
+const SET_USER_PROFILE = 'profilePage/SET_USER_PROFILE';
+const SET_PROFILE_STATUS = 'profilePage/SET_PROFILE_STATUS';
+const SET_PHOTO = 'profilePage/SET_PHOTO';
 
 
 let initialState = {
@@ -19,73 +21,99 @@ let initialState = {
 
 const profilePageReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_POST: {
+        case ADD_POST:
             let newPost = {
-                id: 6,
+                id: state.posts.length + 1,
                 text: action.postBody,
                 likeCount: 0
             };
-            let newState = {...state};
-            newState.posts = [...state.posts];
-            newState.posts.push(newPost);
-            return newState;
-        };
-
+            return {
+                ...state,
+                posts: [...state.posts, newPost].reverse(),
+            };
 
         case SET_USER_PROFILE:
             return {
                 ...state,
                 userProfile: action.userProfile,
-            }
+            };
         case SET_PROFILE_STATUS:
             return {
                 ...state,
                 status: action.status,
+            };
+        case SET_PHOTO:
+            return {
+                ...state,
+                userProfile: {...state.userProfile, photos: action.photo},
             };
         default:
             return state;
     }
 }
 
-export let onAddPost = (postBody) => {
-    return {type: ADD_POST,
-        postBody,
+const onAddPostSuccess = postBody => ({
+    type: ADD_POST,
+    postBody,
+});
+
+export const onAddPost = postBody => dispatch => {
+    dispatch(onAddPostSuccess(postBody));
+    dispatch(reset('post form'));
+};
+
+const setUserProfile = userProfile => ({
+    type: SET_USER_PROFILE,
+    userProfile,
+});
+
+const setProfileStatus = status => ({
+    type: SET_PROFILE_STATUS,
+    status,
+});
+
+const setPhoto = photo => ({
+    type: SET_PHOTO,
+    photo,
+});
+
+
+export const getProfileStatus = userId => async dispatch => {
+    let response = await profileAPI.getStatus(userId);
+    dispatch(setProfileStatus(response.data));
+
+};
+
+export const getUserProfile = userId => async dispatch => {
+    let response = await usersAPI.getProfile(userId);
+    dispatch(setUserProfile(response.data));
+};
+
+export const updateProfileStatus = status => async dispatch => {
+    let response = await profileAPI.updateStatus(status);
+    if (response.data.resultCode === 0) {
+        dispatch(setProfileStatus(status));
     }
 };
 
-export let setUserProfile = (userProfile) => {
-    return {
-        type: SET_USER_PROFILE,
-        userProfile,
+export const updateProfilePhoto = photo => async dispatch => {
+    let response = await profileAPI.updatePhoto(photo);
+    if (response.data.resultCode === 0) {
+        dispatch(setPhoto(response.data.data.photos));
     }
-}
-
-export  let setProfileStatus = (status) => {
-    return {
-        type: SET_PROFILE_STATUS,
-        status,
-    }
-}
-
-export  let getProfileStatus = (userId) => (dispatch) => {
-    profileAPI.getStatus(userId).then(response => {
-        dispatch(setProfileStatus(response.data));
-    })
-}
-
-export let getUserProfile = (userId) => (dispatch) => {
-    usersAPI.getProfile(userId).then(response => {
-        dispatch(setUserProfile(response.data));
-    })
+    ;
 };
 
-export  let updateProfileStatus = (status) => (dispatch) => {
-    profileAPI.updateStatus(status).then(response => {
-        if(response.data.resultCode === 0) {
-            dispatch(setProfileStatus(status));
-        }
-    })
-}
-
+export const updateProfileData = profileData => async (dispatch, getState) => {
+    let userId = getState().authTemplate.id;
+    let response = await profileAPI.updateProfile(profileData);
+    if (response.data.resultCode === 0) {
+        dispatch(getUserProfile(userId));
+    } else {
+        let messageError = response.data.messages.length > 0 ? response.data.messages : "Some error";
+        dispatch(stopSubmit('profile', {_error: messageError}));
+        return Promise.reject(response.data.messages[0]);
+    }
+};
 
 export default profilePageReducer;

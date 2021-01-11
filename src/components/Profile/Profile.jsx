@@ -1,20 +1,20 @@
 import React from 'react';
-import style from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo"
-import PostsContainer from "./Posts/PostsContainer";
+import Posts from "./Posts/Posts";
 
-
-
-
-let Profile = (props) => {
+let Profile = props => {
+    let {updateProfileData, updateProfilePhoto,loggedId,userProfile,status,updateProfileStatus} = props;
     return(
-        <div className={style.profile}>
-            <ProfileInfo userProfile={props.userProfile} status={props.status} updateProfileStatus={props.updateProfileStatus}/>
-            <PostsContainer/>
-        </div>
+        <>
+            <ProfileInfo updateProfileData={updateProfileData}
+                         updateProfilePhoto={updateProfilePhoto}
+                         isOwner={!props.match.params.userId}
+                         userProfile={userProfile}
+                         status={status}
+                         updateProfileStatus={updateProfileStatus}/>
+            <Posts/>
+        </>
     )
 };
-
-
 
 export default Profile;

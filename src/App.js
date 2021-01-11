@@ -1,43 +1,47 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import style from './App.module.css';
 import Sidebar from './components/Sidebar/Sidebar';
-import {Route} from "react-router-dom";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import {Redirect, Route, Switch} from "react-router-dom";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/login";
 import {connect} from "react-redux";
-import {getAuthUser} from "./redux/auth-reducer";
 import {initializing} from "./redux/app-reducer";
 import Preloader from "./common/Preloader/Preloader";
+import Error404 from "./components/ErrorComponents/Error404";
+import {requestInitialized} from "./redux/selectors";
+import Dialogs from "./components/Dialogs/Dialogs";
 
-class App extends React.Component{
-    componentDidMount() {
-        this.props.initializing();
+
+const App = ({initializing,initialized}) => {
+
+    useEffect(()=> initializing(), [initialized]);
+
+    if(!initialized) {
+        return <Preloader/>
     }
-    render(){
-        if(!this.props.initialized) {
-            return <Preloader/>
-        }
-        return (
-            <div className={style.app}>
-                <HeaderContainer/>
-                <Sidebar/>
-                <div className={style.content}>
+    return  (
+        <div className={style.app}>
+            <HeaderContainer/>
+            <Sidebar/>
+            <section className={style.content}>
+                <Switch>
                     <Route path="/profile/:userId?" render={()=> <ProfileContainer />}/>
-                    <Route path="/dialogs" render={()=> <DialogsContainer  />}/>
+                    <Route path="/dialogs" render={()=> <Dialogs/>}/>
                     <Route path="/users" render={()=> <UsersContainer  />}/>
                     <Route path="/login" render={()=> <Login />}/>
-                </div>
-            </div>
-        );
-    }
+                    <Redirect exact from='/' to='/profile'/>
+                    <Route path='*' render={() => <Error404/>}/>
+                </Switch>
+            </section>
+        </div>
+    );
 }
 
-const mapStateToProps = (state)=> (
+const mapStateToProps = state => (
     {
-        initialized : state.app.initialized,
+        initialized : requestInitialized(state),
     }
 );
 

@@ -1,5 +1,10 @@
 .profileInfo {
+    display: flex;
+    align-items: flex-start;
     background-color: dimgrey;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }
 .imagebox {
     width: 100%;
@@ -7,15 +12,72 @@
     overflow-y: hidden;
     margin-bottom: 30px;
 }
-.image {
-    width: 100%;
-    transform: translateY(-100px);
+
+.avatar {
+    margin-right: 30px;
+    width: 200px;
 }
 
-.profile {
-    display: flex;
-    padding: 20px;
+.contacts {
+    padding-left: 15px;
 }
-.profile img {
-    margin-right: 30px;
+.dataList {
+    display: flex;
+}
+.mainData {
+    margin-right: 20px;
+}
+
+#changePhoto{
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+.customFile {
+    background: gray;
+    opacity: 0.5;
+    color: white;
+    padding: 5px;
+    position: absolute;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.customFile:hover {
+    opacity: 1;
+    transition: 0.3s;
+}
+
+.statusHolder {
+    margin-bottom: 20px;
+}
+.status {
+    cursor: pointer;
+}
+.prompt {
+    font-size: 8px;
+    background-color: #fff;
+    padding: 10px;
+    opacity: 0;
+}
+.showPrompt {
+    opacity: 1;
+}
+.profileBtn {
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: gray;
+    padding: 10px;
+    opacity: 0.5;
+    width: auto;
+    margin-bottom: 0;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.profileBtn:active, .profileBtn:focus {
+    outline: none;
+}
+.profileBtn:hover{
+    opacity: 1;
+    transition: 0.3s;
 }
