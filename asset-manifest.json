@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/ReactSocialNet/static/css/main.8bc959c8.chunk.css",
+    "main.js": "/ReactSocialNet/static/js/main.19ca667e.chunk.js",
+    "main.js.map": "/ReactSocialNet/static/js/main.19ca667e.chunk.js.map",
+    "runtime-main.js": "/ReactSocialNet/static/js/runtime-main.b4fd98c4.js",
+    "runtime-main.js.map": "/ReactSocialNet/static/js/runtime-main.b4fd98c4.js.map",
+    "static/js/2.239ac4a8.chunk.js": "/ReactSocialNet/static/js/2.239ac4a8.chunk.js",
+    "static/js/2.239ac4a8.chunk.js.map": "/ReactSocialNet/static/js/2.239ac4a8.chunk.js.map",
+    "static/js/3.c7eb9097.chunk.js": "/ReactSocialNet/static/js/3.c7eb9097.chunk.js",
+    "static/js/3.c7eb9097.chunk.js.map": "/ReactSocialNet/static/js/3.c7eb9097.chunk.js.map",
+    "index.html": "/ReactSocialNet/index.html",
+    "static/css/main.8bc959c8.chunk.css.map": "/ReactSocialNet/static/css/main.8bc959c8.chunk.css.map",
+    "static/js/2.239ac4a8.chunk.js.LICENSE.txt": "/ReactSocialNet/static/js/2.239ac4a8.chunk.js.LICENSE.txt",
+    "static/media/404.7145d163.png": "/ReactSocialNet/static/media/404.7145d163.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b4fd98c4.js",
+    "static/js/2.239ac4a8.chunk.js",
+    "static/css/main.8bc959c8.chunk.css",
+    "static/js/main.19ca667e.chunk.js"
+  ]
+}
