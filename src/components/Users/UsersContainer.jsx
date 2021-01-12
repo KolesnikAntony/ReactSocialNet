@@ -18,51 +18,19 @@ import {
 } from "../../redux/selectors";
 
 
-const UsersContainer = (props) => {
+const UsersContainer = props => {
 
-    useEffect(()=> props.getUsers(props.currentPage, props.pageSize), []);
+    useEffect(()=> props.getUsers(props.currentPage, props.pageSize), [props.currentPage]);
 
     const showCurrentUsers = page => {
         props.getUsers(page, props.pageSize);
-    }
+    };
 
     return <>
         {props.isFetching && <Preloader/>}
         <Users {...props} showCurrentUsers={showCurrentUsers}/>
         </>
 };
-
-
-
-// class UsersContainer extends React.Component {
-//
-//     componentDidMount() {
-//         this.props.getUsers(this.props.currentPage, this.props.pageSize);
-//
-//     }
-//     showCurrentUsers = (page) => {
-//         this.props.getUsers(page, this.props.pageSize);
-//     }
-//
-//     render() {
-//         return <>
-//             {this.props.isFetching === true && <Preloader/>}
-//             <Users
-//             users={this.props.users}
-//             currentPage={this.props.currentPage}
-//             totalUsers={this.props.totalUsers}
-//             pageSize={this.props.pageSize}
-//             showCurrentUsers={this.showCurrentUsers}
-//             unfollow={this.props.unfollow}
-//             follow={this.props.follow}
-//             followingInProgress={this.props.followingInProgress}
-//             portionSize={this.props.portionSize}
-//         />
-//         </>
-//     }
-// }
-
-
 
 
 const mapStateToProps = state => {

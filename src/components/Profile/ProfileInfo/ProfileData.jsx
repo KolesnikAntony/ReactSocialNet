@@ -26,8 +26,8 @@ const ProfileData = ({userProfile, toggleEditMode,isOwner}) => {
                 <li>
                     <b>Contacts</b>
                     <ul className={style.contacts}>
-                        {Object.entries(userProfile.contacts).map(k=> {
-                                if(k[1] != null && k[1] != ''){
+                        {Object.entries(userProfile.contacts).map(k => {
+                                if(k[1] != null && k[1] !== ''){
                                     return  <li key={k[0]}>
                                         <b>{k[0]}: </b>
                                         <span>{k[1]}</span>

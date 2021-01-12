@@ -1,6 +1,9 @@
 import React from 'react';
 import style from './Header.module.css'
 import {NavLink} from "react-router-dom";
+import {requestIsAuth, requestLogin} from "../../redux/selectors";
+import {connect} from "react-redux";
+import {toLogout} from "../../redux/auth-reducer";
 
 
 const Header = ({toLogout, isAuth, login}) => {
@@ -13,7 +16,8 @@ const Header = ({toLogout, isAuth, login}) => {
             <img className={style.img} src="https://www.besplatnyeprogrammy.ru/wp-content/uploads/anydesk.png"
                  alt="logo"/>
             <div>
-                {isAuth ? <div className={style.isAuth}>
+                {
+                    isAuth ? <div className={style.isAuth}>
                             <span>{login}</span>
                             <span>-</span>
                             <button onClick={onLogout}>Log out</button>
@@ -22,6 +26,13 @@ const Header = ({toLogout, isAuth, login}) => {
                 }
             </div>
         </header>)
-}
+};
 
-export default Header;
+
+let  mapStateToProps = state => ({
+    isAuth : requestIsAuth(state),
+    login : requestLogin(state),
+});
+
+
+export default connect(mapStateToProps, {toLogout})(Header);

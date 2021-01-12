@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './Dialogs.module.css'
-import Users from "./Users/Users";
+import DialogsUsers from "./DialogsUsers/DialogsUsers";
 import Messages from "./Messages/Messages";
 import MessagesForm from "./MessagesForm/MessagesForm";
 import {onSendMessage} from "../../redux/dialogsPage-reducer";
@@ -13,7 +13,7 @@ import {requestDialogsPage} from "../../redux/selectors";
 
 
 let Dialogs = ({dialogsPage,onSendMessage}) => {
-    let usersArray = dialogsPage.users.map(el => <Users key={el.id} id={el.id} name={el.name}/>);
+    let usersArray = dialogsPage.users.map(el => <DialogsUsers key={el.id} id={el.id} name={el.name}/>);
     let messagesArray = dialogsPage.messages.map(el=><Messages key={el.id} text={el.text}/>);
 
     const sendMessage = messageBody => {

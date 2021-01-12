@@ -7,7 +7,7 @@ let initialState = {
 };
 
 const appReducer = (state = initialState, action) => {
-    switch (action.type) {
+    switch(action.type) {
         case INITIALIZED:
             return {
                 ...state,
@@ -18,13 +18,13 @@ const appReducer = (state = initialState, action) => {
             return state;
     }
 
-}
+};
 
 const setInitialized = () => (
     {
         type: INITIALIZED,
     }
-)
+);
 
 
 

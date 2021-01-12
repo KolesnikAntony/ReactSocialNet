@@ -1,4 +1,4 @@
-import {profileAPI, usersAPI} from "../api/api";
+import {profileAPI} from "../api/api";
 import {reset, stopSubmit} from "redux-form";
 
 const ADD_POST = 'profilePage-reducer/ADD-POST';
@@ -17,7 +17,7 @@ let initialState = {
     ],
     userProfile: null,
     status: '',
-}
+};
 
 const profilePageReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -50,7 +50,7 @@ const profilePageReducer = (state = initialState, action) => {
         default:
             return state;
     }
-}
+};
 
 const onAddPostSuccess = postBody => ({
     type: ADD_POST,
@@ -85,7 +85,7 @@ export const getProfileStatus = userId => async dispatch => {
 };
 
 export const getUserProfile = userId => async dispatch => {
-    let response = await usersAPI.getProfile(userId);
+    let response = await profileAPI.getProfile(userId);
     dispatch(setUserProfile(response.data));
 };
 
@@ -101,7 +101,6 @@ export const updateProfilePhoto = photo => async dispatch => {
     if (response.data.resultCode === 0) {
         dispatch(setPhoto(response.data.data.photos));
     }
-    ;
 };
 
 export const updateProfileData = profileData => async (dispatch, getState) => {

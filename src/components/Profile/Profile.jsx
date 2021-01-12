@@ -3,7 +3,7 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo"
 import Posts from "./Posts/Posts";
 
 let Profile = props => {
-    let {updateProfileData, updateProfilePhoto,loggedId,userProfile,status,updateProfileStatus} = props;
+    let {updateProfileData, updateProfilePhoto,userProfile,status,updateProfileStatus} = props;
     return(
         <>
             <ProfileInfo updateProfileData={updateProfileData}

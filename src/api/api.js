@@ -8,7 +8,7 @@ const instance = axios.create(
         },
         baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     }
-)
+);
 
 export const usersAPI = {
     getUsers(currentPage, pageSize){
@@ -20,12 +20,8 @@ export const usersAPI = {
     follow(userId){
         return instance.post(`follow/${userId}`)
     },
-    getProfile(userId) {
-        console.warn('This is old method. Please use to ProfileAPI');
-        return profileAPI.getProfile(userId);
-    }
 
-}
+};
 
 export const profileAPI = {
     getProfile(userId) {

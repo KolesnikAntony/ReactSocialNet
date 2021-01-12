@@ -9,17 +9,15 @@ export const FormControls = ({input, meta, ...props}) => {
             <span>{hasError && meta.error}</span>
         </div>
     </div>
-}
+};
 
-export const Input = (props) => {
+export const Input = props => {
     let {input, meta, ...restProps} = props;
     return <FormControls {...props}><input {...input} {...restProps} /></FormControls>
-}
+};
 
-export const Textarea = (props) => {
+export const Textarea = props => {
     let {input, meta, ...restProps} = props;
     return <FormControls {...props}><textarea {...input} {...restProps} /></FormControls>
-}
-
-
+};
 

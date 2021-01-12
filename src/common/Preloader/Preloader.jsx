@@ -13,4 +13,4 @@ let Preloader = () => {
     </div>
 }
 
-export default Preloader
+export default Preloader;
