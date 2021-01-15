@@ -1,12 +1,11 @@
 import React from 'react';
 import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
+import {requestIsAuth} from "../redux/selectors";
 
-const mapStateToPropsAuth = state => {
-    return {
-        isAuth: state.authTemplate.isAuth,
-    }
-};
+const mapStateToPropsAuth = state => ({
+    isAuth: requestIsAuth(state),
+});
 
 
 const withAuthRedirect = Component => {
