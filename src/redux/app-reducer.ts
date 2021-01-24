@@ -1,12 +1,14 @@
+import { InitialStateType } from "../Types/types";
 import {getAuthUser} from "./auth-reducer";
 
 const INITIALIZED = 'app-reducer/INITIALIZED';
 
-let initialState = {
+
+let initialState: InitialStateType = {
     initialized: false,
 };
 
-const appReducer = (state = initialState, action) => {
+const appReducer = (state = initialState, action:any):InitialStateType => {
     switch(action.type) {
         case INITIALIZED:
             return {
@@ -20,7 +22,10 @@ const appReducer = (state = initialState, action) => {
 
 };
 
-const setInitialized = () => (
+type SetInitializedActionType = {
+    type: typeof INITIALIZED
+}
+const setInitialized = ():SetInitializedActionType => (
     {
         type: INITIALIZED,
     }
@@ -28,7 +33,7 @@ const setInitialized = () => (
 
 
 
-export const initializing = () => async dispatch => {
+export const initializing = () => async (dispatch: any) => {
     await dispatch(getAuthUser());
     dispatch(setInitialized());
 };
