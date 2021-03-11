@@ -1,8 +1,16 @@
-import React, {useState} from 'react'
+import React, {FC, useState} from 'react'
 import style from "../../components/Users/Users.module.css";
 
 
-const Paginator = ({totalUsers, pageSize, portionSize, currentPage,showCurrentUsers}) => {
+type PropsType = {
+    totalUsers: number,
+    pageSize: number,
+    portionSize: number,
+    currentPage: number,
+    showCurrentUsers: (currentPageOfPortion: number) => void
+}
+
+const Paginator: FC<PropsType> = ({totalUsers, pageSize, portionSize, currentPage,showCurrentUsers}) => {
     let totalPage = Math.ceil(totalUsers / pageSize);
     let pages = [];
     for(let i=1; i<totalPage; i++){
@@ -14,19 +22,19 @@ const Paginator = ({totalUsers, pageSize, portionSize, currentPage,showCurrentUs
     let leftPortionPageNumber = (portionNumber - 1 ) * portionSize + 1;
     let rightPortionPageNumber =  portionSize * portionNumber;
 
-    const portionFlow = (portionCurrentNumber,currentPageOfPortion) => {
+    const portionFlow = (portionCurrentNumber: number,currentPageOfPortion: number) => {
         setPortionNumber(portionCurrentNumber);
         showCurrentUsers(currentPageOfPortion);
     };
 
-    const nextPortion = (portionNumber, portionSize) => {
+    const nextPortion = (portionNumber: number, portionSize: number) => {
         let portionCurrentNumber = portionNumber + 1;
         let currentPageOfPortion = (portionCurrentNumber - 1) * portionSize+ + 1;
         portionFlow(portionCurrentNumber, currentPageOfPortion)
 
     };
 
-    const prevPortion = (portionNumber,portionSize) => {
+    const prevPortion = (portionNumber: number, portionSize: number) => {
         let portionCurrentNumber = portionNumber - 1;
         let currentPageOfPortion = portionCurrentNumber * portionSize;
         portionFlow(portionCurrentNumber, currentPageOfPortion);
@@ -37,7 +45,8 @@ const Paginator = ({totalUsers, pageSize, portionSize, currentPage,showCurrentUs
         <div className={style.pagination}>
             {pages
                 .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
-                .map(p => <span  key={p} onClick={()=> showCurrentUsers(p)} className={(p === currentPage)  && style.selectedPage}>{p}</span>)}
+                .map(p => <span  key={p} onClick={()=> showCurrentUsers(p)}
+                    className ={(p === currentPage) ? style.selectedPage : undefined}>{p}</span>)}
         </div>
         <button onClick={() => nextPortion(portionNumber,portionSize)} disabled={portionCount <= portionNumber}>next</button>
     </div>

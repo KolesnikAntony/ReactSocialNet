@@ -10,7 +10,6 @@ export type MessageType = {
     id: number
     text: string
 }
-
 export type PhotosType = {
     small: string | null
     large: string | null
@@ -33,7 +32,6 @@ export type UserProfileType = {
     contacts: ContactsType
     photos: PhotosType
 }
-
 export type UserType = {
     id: number
     name: string

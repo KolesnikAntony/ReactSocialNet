@@ -1,4 +1,4 @@
-import {authAPI, securityAPI} from "../api/api";
+import {authAPI, ResultCodeCaptchaEnum, ResultCodeEnum, securityAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
 const SET_AUTH_USER = 'SET_AUTH_USER';
@@ -62,9 +62,9 @@ const setCaptcha = (captchaUrl: string): SetCaptcha => ({
 
 
 export const getAuthUser = () => async (dispatch: any) => {
-    return authAPI.me().then((response: any) => {
-        if (response.data.resultCode === 0) {
-            let {id, login, email} = response.data.data;
+    return authAPI.me().then((data: any) => {
+        if (data.resultCode === ResultCodeEnum.Success) {
+            let {id, login, email} = data.data;
             dispatch(setAuthUser(id, login, email, true))
         }
     })
@@ -72,12 +72,12 @@ export const getAuthUser = () => async (dispatch: any) => {
 
 export const toLogin = (email: string, password: string, rememberMe:boolean = false, captcha: string | null = null) => async (dispatch: any) => {
     let response = await authAPI.login(email, password, rememberMe, captcha);
-    if (response.data.resultCode === 0) {
+    if (response.data.resultCode === ResultCodeEnum.Success) {
         dispatch(getAuthUser())
     } else {
-        if (response.data.resultCode === 10) {
-            securityAPI.getCaptcha().then((response: any) => {
-                dispatch(setCaptcha(response.data.url))
+        if (response.data.resultCode === ResultCodeCaptchaEnum.Captcha) {
+            securityAPI.getCaptcha().then((data: any) => {
+                dispatch(setCaptcha(data.url))
             })
         }
         let messageError = response.data.messages.length > 0 ? response.data.messages : "Some error";

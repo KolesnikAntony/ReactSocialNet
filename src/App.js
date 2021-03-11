@@ -31,7 +31,7 @@ const App = ({initializing,initialized}) => {
                 <Switch>
                     <Route path="/profile/:userId?" render={()=> <ProfileContainer />}/>
                     <Route path="/dialogs" render={()=> <Dialogs/>}/>
-                    <Route path="/users" render={()=> <UsersContainer  />}/>
+                    <Route path="/users" render={()=> <UsersContainer pageTitle='Way of Samurai'  />}/>
                     <Route path="/login" render={()=> <Login />}/>
                     <Redirect exact from='/' to='/profile'/>
                     <Route path='*' render={() => <Error404/>}/>
