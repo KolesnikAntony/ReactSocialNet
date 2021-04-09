@@ -10,6 +10,9 @@ export type MessageType = {
     id: number
     text: string
 }
+export type PhotosDataType = {
+    photos: PhotosType
+}
 export type PhotosType = {
     small: string | null
     large: string | null
@@ -37,4 +40,9 @@ export type UserType = {
     name: string
     status: string
     photos: PhotosType
+}
+export type UsersGetType = {
+    items:Array<UserType>
+    totalCount : number
+    error: null | Array<string>
 }
